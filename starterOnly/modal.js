@@ -66,7 +66,7 @@ const validateName = (element) => {
     result = false;
     element.parentNode.dataset.error="Veuillez entrer au moins 2 caractères."
     element.parentNode.setAttribute("data-error-visible",true);
-  } else if (!(/^[a-zA-Z]+$/g).test(name)) {
+  } else if (!(/[A-Za-zÀ-ÖØ-öø-ÿ '-]+$/g).test(name)) {
     result = false;
     element.parentNode.dataset.error="Caractères invalides."
     element.parentNode.setAttribute("data-error-visible",true);
@@ -76,6 +76,9 @@ const validateName = (element) => {
 
 // Email function
 const validateEmail = (element) => {
+  let result = true;
+  const name = element.value;
+  element.parentNode.setAttribute("data-error-visible",false);
 
   if (!(/^[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+$/).test(name)) {
     result = false;
@@ -87,6 +90,9 @@ const validateEmail = (element) => {
 
 // Birthdate function
 const validateBirthdate = (element) => {
+  let result = true;
+  const name = element.value;
+  element.parentNode.setAttribute("data-error-visible",false);
 
   if (!(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/).test(name)) {
     result = false;
@@ -103,6 +109,9 @@ const validateBirthdate = (element) => {
 
 // Tournament quantity function
 const validateTournamentQuantity = (element) => {
+  let result = true;
+  const name = element.value;
+  element.parentNode.setAttribute("data-error-visible",false);
 
   if (!(/^[0-9][0-9]?$|^99$/).test(name)) {
     result = false;
@@ -112,7 +121,7 @@ const validateTournamentQuantity = (element) => {
   return result
 }
 
-
+/*
 // Cities selection function
 const validateCitiesBtnRadio = (element) => {
 
@@ -126,11 +135,14 @@ for (let i = 0; i < citiesBtnRadio.length; i++)
   }
   return result
 }
-
-
+*/
 
 // Terms of use function
 const validateTos = (element) => {
+  let result = true;
+  const name = element.value;
+  element.parentNode.setAttribute("data-error-visible",false);
+
   if (!(tosChecked.checked)) {
     result = false;
     element.parentNode.dataset.error="Veuillez accepter les conditions d'utilisation."
@@ -161,7 +173,7 @@ function validate() {   // Code line 63 (HTML, onsubmit)
     result = validateTournamentQuantity(tournamentQuantity) && result;
 
     // Cities selection validation
-    result = validateCitiesBtnRadio(citiesBtnRadio) && result;
+    //result = validateCitiesBtnRadio(citiesBtnRadio) && result;
  
     // Terms of use validation
     result = validateTos(tosChecked) && result;
