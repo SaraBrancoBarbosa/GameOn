@@ -1,14 +1,17 @@
-// responsive header 
+/*********** Responsive nav ***********/
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
-    x.className += "-responsive";
+    x.className += " responsive";
   } else {
     x.className = "topnav";
   }
 }
 // J'aimerais rendre le header visible en responsive lorsqu'on ouvre le formulaire.
 // Ensuite, lorsqu'on descend dans le formulaire, le header disparait. Si on remonte, le header réapparait.
+
+/*********** Elements ***********/
 
 // DOM elements
 const modalbg = document.querySelector(".bground");
@@ -18,46 +21,42 @@ const formData = document.querySelectorAll(".formData");
 const confirmationMsgBox = document.getElementById("confirmationMsgBox");
 const closeBtns = document.querySelectorAll(".close-btn");
 
-// form elements
-let firstName = document.getElementById("first");
-let lastName = document.getElementById("last");
-let email = document.getElementById("email");
-let birthdate = document.getElementById("birthdate");
-let tournamentQuantity = document.getElementById("quantity");
-let listBtnRadio = document.querySelectorAll("input[type=radio]:checked");
-let checkbox = document.querySelectorAll("input[type=checkbox]");
+// Form elements
+const firstName = document.getElementById("first");
+const lastName = document.getElementById("last");
+const email = document.getElementById("email");
+const birthdate = document.getElementById("birthdate");
+const tournamentQuantity = document.getElementById("quantity");
+const citiesBtnRadio = document.querySelectorAll("input[type=radio]");
+const tosChecked = document.getElementById("checkbox1");
 
-// RegExp elements
-let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-let tournamentQuantityRegExp = new RegExp("[\d]+");
+/*********** Launching and closing modal form ***********/
 
-// launch modal form
+// Launch modal form (function)
 function launchModal() {
   modalbg.style.display = "block";
 }
 
-// close modal form (fonction)
+// Close modal form (function)
 function closeModal() {
   modalbg.style.display = "none";
 }
-// Ecrit differemment :
-const closeModal2=()=>{
-  modalbg.style.display = "none"
-}
 
-// Fermer la modale
-closeBtns.forEach((btn) => btn.addEventListener("click", closeModal));
-
-// launch modal event
+// Launch modal event
 modalBtns.forEach((btn) => btn.addEventListener("click", launchModal));
 
+// Close modal event
+closeBtns.forEach((btn) => btn.addEventListener("click", closeModal));
 
-const validChars = "azertyuiopqsdfghjklmwxcvbn"
+/*********** Form elements functions ***********/
+
 /**
- * Fonction de validation de nom
+ * Fonction de validation
  * @param {HTMLElement} element La fonction reçoit la variable element
  * @returns 
  */
+
+// First name and last name function
 const validateName = (element) => {
   let result = true;
   const name = element.value;
@@ -65,11 +64,8 @@ const validateName = (element) => {
 
   if (!(/^(.{2,})$/).test(name)) {
     result = false;
-    // Ajouter la class error : je n'arrive pas à faire le lien entre les erreurs et l'affichage css
-    // "Veuillez entrer au moins 2 caractères." : et donc à insérer le texte sous les cases
     element.parentNode.dataset.error="Veuillez entrer au moins 2 caractères."
     element.parentNode.setAttribute("data-error-visible",true);
-    
   } else if (!(/^[a-zA-Z]+$/g).test(name)) {
     result = false;
     element.parentNode.dataset.error="Caractères invalides."
@@ -78,101 +74,112 @@ const validateName = (element) => {
   return result
 }
 
-// La fonction qui va permettre de valider tous les éléments
-function validate() {   // J'ai repris le onsubmit du HTML ligne 63
+// Email function
+const validateEmail = (element) => {
+
+  if (!(/^[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+$/).test(name)) {
+    result = false;
+    element.parentNode.dataset.error="Veuillez entrer une adresse email valide."
+    element.parentNode.setAttribute("data-error-visible",true);
+  }
+  return result
+}
+
+// Birthdate function
+const validateBirthdate = (element) => {
+
+  if (!(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/).test(name)) {
+    result = false;
+    element.parentNode.dataset.error="Veuillez entrer votre date de naissance."
+    element.parentNode.setAttribute("data-error-visible",true);
+    // Mettre regexp pour être majeur
+  /*} else if (!majeur) { 
+    result = false;
+    element.parentNode.dataset.error="Vous devez être majeur pour vous inscrire."
+    element.parentNode.setAttribute("data-error-visible",true); */
+  }
+  return result
+}
+
+// Tournament quantity function
+const validateTournamentQuantity = (element) => {
+
+  if (!(/^[0-9][0-9]?$|^99$/).test(name)) {
+    result = false;
+    element.parentNode.dataset.error="Veuillez saisir un nombre entre 0 et 99."
+    element.parentNode.setAttribute("data-error-visible",true);
+  }
+  return result
+}
+
+
+// Cities selection function
+const validateCitiesBtnRadio = (element) => {
+
+for (let i = 0; i < citiesBtnRadio.length; i++)
+
+
+  if (!(citiesBtnRadio[i].checked)) {
+    result = false;
+    element.parentNode.dataset.error="Veuillez sélectionner une ville."
+    element.parentNode.setAttribute("data-error-visible",true);
+  }
+  return result
+}
+
+
+
+// Terms of use function
+const validateTos = (element) => {
+  if (!(tosChecked.checked)) {
+    result = false;
+    element.parentNode.dataset.error="Veuillez accepter les conditions d'utilisation."
+    element.parentNode.setAttribute("data-error-visible",true);
+  }
+  return result
+}
+
+/*********** Form validation ***********/
+
+function validate() {   // Code line 63 (HTML, onsubmit)
 
   let result = true;
 
-  // Valider prénom
-    result = validateName(firstName) && result
+    // First name validation
+    result = validateName(firstName) && result;
 
-  // Valider nom  
-    result = validateName(lastName) && result
+    // Last name validation  
+    result = validateName(lastName) && result;
 
-  // Valider l'email
-    if (!emailRegExp.test(email.value)) {
-      // Ajouter la class error
-      // "Veuillez entrer une adresse email valide."
-      console.log("Vous avez fait une erreur. email")
-    } else {
-      // Succès
-      // Enlever message d'erreur s'il y a
-      email.setCustomValidity("")
-      console.log("Bravo ! email")
-    }
+    // Email validation
+    result = validateEmail(email) && result;
 
-  // Valider date de naissance
-    if (!birthdate.value) {  // Date non sélectionnée
-      // Ajouter la class error
-      // "Vous devez entrer votre date de naissance."
-      console.log("Vous avez fait une erreur. naissance") 
-    } else {
-      // Succès
-      // Enlever message d'erreur s'il y a
-      console.log("Bravo ! naissance")
-    }
+    // Birthdate validation
+    result = validateBirthdate(birthdate) && result;
 
-  // Valider quantité de tournoi
-    if (tournamentQuantityRegExp.test(tournamentQuantity.value === "" || tournamentQuantity.value == NaN)) {  // Valeur numérique non saisie
-      // Ajouter la class error
-      // "Vous devez saisir un nombre."
-      console.log("Vous avez fait une erreur. tournoi")
-    } else {
-      // Succès
-      // Enlever message d'erreur s'il y a
-      console.log("Bravo ! tournoi")  
-    }
+    // Tournament quantity validation
+    result = validateTournamentQuantity(tournamentQuantity) && result;
 
-  // Valider button radio: cities selection
-  for (let i = 0; i < listBtnRadio.length; i++) {
-      if (!listBtnRadio[i].checked) { // Avec ce code-là, il considère que toutes les villes doivent être cochées
-        // Ajouter la class error
-        // "Vous devez choisir une option."
-        console.log("Vous avez fait une erreur. villes")
-      } else {
-        // Si un des choix est sélectionné, succès
-        // Enlever message d'erreur s'il y a
-        console.log("Bravo ! villes") 
-      }  
-    }
+    // Cities selection validation
+    result = validateCitiesBtnRadio(citiesBtnRadio) && result;
+ 
+    // Terms of use validation
+    result = validateTos(tosChecked) && result;
+    // Doit-on faire quelque chose avec la case newsletter ?
 
-  // Valider les cases à cocher
-  // "Je souhaite être prévenu des prochains évènements" n'est pas obligatoire
-  if (!(checkbox.checked)) {
-    // Ajouter la class error
-    // "Vous devez vérifier que vous acceptez les termes et conditions."
-    console.log("Vous avez fait une erreur. Conditions d'utilisation")
-  } else {
-    // Succès
-    // Enlever message d'erreur s'il y a
-  }
-
-  return result; // Si tout est bon, il valide
+  // If all the datas are correct, the result is validated
+  return result; 
 }
 
-// submit form
+/*********** Form submission ***********/
+
 form.addEventListener("submit", (event) => {
-  if (!validate()) { //si les données entrées dans le formulaire sont incorrectes
-  // "Vous n'avez pas saisi toutes les données correctement."
-  event.preventDefault(); // Il n'y a pas de rechargement de page lors du submit, pour garder les données
+  // If the function is wrong, we keep the datas so the user can correct them. We prevent the page from loading.
+  if (!validate()) {
+  event.preventDefault();
   } else {
-    // L'envoi est validé
+    // The submission is validated
     form.style.display = "none";
     confirmationMsgBox.style.display = "flex"
   }
 });
-
-
-
-
-
-
-
-
-
-
-// send an email confirmation to the user, optionnel mais j'aimerais bien voir comment faire
-function afficherEmail(firstName, email) {
-  let mailto = `mailto:${email}?subject=Confirmation de votre participation&body=Bonjour ${firstName}, nous avons bien reçu votre formulaire ! Merci d'avoir participé.`
-  location.href = mailto
-}

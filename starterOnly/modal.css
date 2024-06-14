@@ -33,7 +33,7 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 50px;
+  margin: 30px 40px;
 }
 
 .topnav a {
@@ -88,7 +88,7 @@ img {
   .header-logo img {
     height: 30px;
   }
-  .topnav-responsive {
+  .topnav.responsive {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -96,12 +96,12 @@ img {
     margin: 30px 30px;
     height: 65px;
   }
-  .topnav-responsive .main-navbar {
+  .topnav.responsive .main-navbar {
     display: flex;
     flex-direction: column;
     margin-right: 50px;
   }
-  .topnav-responsive .icon {
+  .topnav.responsive .icon {
     position: absolute;
     right: 5px;
     top: 5px;
@@ -110,7 +110,7 @@ img {
     font-size: 2rem;
     padding: 12px;
   }
-  .topnav-responsive a {
+  .topnav.responsive a {
     display: block;
     color: #000000;
     text-decoration: none;
@@ -119,13 +119,13 @@ img {
     padding: 0px 12px;
     text-align: end;
   }
-  .topnav-responsive a:hover {
+  .topnav.responsive a:hover {
     background-color: #ff0000;
     color: #ffffff;
     border-radius: 15px;
   }
   
-  .topnav-responsive a.active {
+  .topnav.responsive a.active {
     background-color: #ff0000;
     color: #ffffff;
     border-radius: 15px;
@@ -266,7 +266,7 @@ input {
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em;
+  font-size: 0.4em; /* Agrandir la taille */
   color: #e54858;
   display: block;
   margin-top: 7px;
