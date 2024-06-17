@@ -219,13 +219,27 @@ main {
 }
 
 /* Validation message when the form is submitted */
+.modal-validate-box {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  background-color: rgba(26, 39, 156, 0.4);
+}
+
 .modal-validate-message {
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
   font-size: 2.5rem;
   font-weight: normal;
-  display: none;
+  display: flex;
+  height: 75vh;
 }
 
 .modal-validate-message-btn {
@@ -238,6 +252,8 @@ main {
   color: #fff;
   cursor: pointer;
   border: 0;
+  position: absolute;
+  bottom: 20px;
 }
 
 label {
@@ -266,12 +282,12 @@ input {
 
 .formData[data-error]::after {
   content: attr(data-error);
-  font-size: 0.4em; /* Agrandir la taille */
+  font-size: 0.6rem; /* Agrandir la taille */
   color: #e54858;
   display: block;
   margin-top: 7px;
   margin-bottom: 7px;
-  text-align: right;
+  text-align: left;
   line-height: 0.3;
   opacity: 0;
   transition: 0.3s;
@@ -557,6 +573,13 @@ footer {
 @media screen and (max-width: 768px) {
   main {
     margin: 0 auto;
+  }
+  .bground {
+    background-color: transparent;
+  }
+  .content {
+    margin: auto;
+    margin-top: 125px;
   }
   .hero-section {
     display: block;

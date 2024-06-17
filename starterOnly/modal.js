@@ -27,7 +27,11 @@ const lastName = document.getElementById("last");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const tournamentQuantity = document.getElementById("quantity");
-const citiesBtnRadio = document.querySelectorAll("input[type=radio]");
+const citiesBtnRadio = document.querySelector("input[name='location']:checked");
+/*
+Je n'arrivais pas à rendre fonctionnel les btn radios en passant par citiesBtnRadio.
+J'aimerais cependant comprendre pourquoi cela fonctionne quand j'écris le code dans la fonction, mais pas ici
+*/
 const tosChecked = document.getElementById("checkbox1");
 
 /*********** Launching and closing modal form ***********/
@@ -75,78 +79,72 @@ const validateName = (element) => {
 }
 
 // Email function
-const validateEmail = (element) => {
+const validateEmail = () => {
   let result = true;
-  const name = element.value;
-  element.parentNode.setAttribute("data-error-visible",false);
+  formData[2].setAttribute("data-error-visible", false);
 
-  if (!(/^[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+$/).test(name)) {
+  if (!email.value.match(/^[a-z0-9._-]+@[a-z0-9._-]+.[a-z0-9._-]+$/)) {
     result = false;
-    element.parentNode.dataset.error="Veuillez entrer une adresse email valide."
-    element.parentNode.setAttribute("data-error-visible",true);
+    formData[2].setAttribute("data-error", "Veuillez entrer une adresse email valide.");
+    formData[2].setAttribute("data-error-visible", true);
   }
   return result
 }
 
 // Birthdate function
-const validateBirthdate = (element) => {
+const validateBirthdate = () => {
   let result = true;
-  const name = element.value;
-  element.parentNode.setAttribute("data-error-visible",false);
+  formData[3].setAttribute("data-error-visible", false);
 
-  if (!(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/).test(name)) {
+  if (!birthdate.value.match(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/)) {
     result = false;
-    element.parentNode.dataset.error="Veuillez entrer votre date de naissance."
-    element.parentNode.setAttribute("data-error-visible",true);
-    // Mettre regexp pour être majeur
-  /*} else if (!majeur) { 
+    formData[3].setAttribute("data-error", "Veuillez entrer votre date de naissance.");
+    formData[3].setAttribute("data-error-visible", true);
+    /* Mettre regexp pour être majeur
+   } else if (!majeur) {
     result = false;
-    element.parentNode.dataset.error="Vous devez être majeur pour vous inscrire."
-    element.parentNode.setAttribute("data-error-visible",true); */
+    formData[3].setAttribute("data-error-visible", true);
+    formData[3].setAttribute("data-error", "Vous devez être majeur pour vous inscrire."); */
   }
   return result
 }
 
 // Tournament quantity function
-const validateTournamentQuantity = (element) => {
+const validateTournamentQuantity = () => {
   let result = true;
-  const name = element.value;
-  element.parentNode.setAttribute("data-error-visible",false);
+  formData[4].setAttribute("data-error-visible", false);
 
-  if (!(/^[0-9][0-9]?$|^99$/).test(name)) {
+  if (!tournamentQuantity.value.match(/^[0-9][0-9]?$|^99$/)) {
     result = false;
-    element.parentNode.dataset.error="Veuillez saisir un nombre entre 0 et 99."
-    element.parentNode.setAttribute("data-error-visible",true);
+    formData[4].setAttribute("data-error", "Veuillez saisir un nombre entre 0 et 99.");
+    formData[4].setAttribute("data-error-visible", true);
   }
   return result
 }
 
-/*
 // Cities selection function
-const validateCitiesBtnRadio = (element) => {
+const validateCitiesBtnRadio = () => {
+  let result = true;
+  formData[5].setAttribute("data-error-visible", false);
 
-for (let i = 0; i < citiesBtnRadio.length; i++)
-
-
-  if (!(citiesBtnRadio[i].checked)) {
-    result = false;
-    element.parentNode.dataset.error="Veuillez sélectionner une ville."
-    element.parentNode.setAttribute("data-error-visible",true);
-  }
-  return result
+    if (!(document.querySelector('input[name="location"]:checked'))) {
+      result = false;
+      formData[5].setAttribute("data-error", "Veuillez sélectionner une ville.");
+      formData[5].setAttribute("data-error-visible", true);
+    }
+    return result;
+  
 }
-*/
 
 // Terms of use function
-const validateTos = (element) => {
+const validateTos = () => {
   let result = true;
-  const name = element.value;
-  element.parentNode.setAttribute("data-error-visible",false);
+  formData[6].setAttribute("data-error-visible", false);
 
-  if (!(tosChecked.checked)) {
+  if (!tosChecked.checked) {
     result = false;
-    element.parentNode.dataset.error="Veuillez accepter les conditions d'utilisation."
-    element.parentNode.setAttribute("data-error-visible",true);
+    formData[6].setAttribute("data-error", "Veuillez accepter les conditions d'utilisation.");
+    formData[6].setAttribute("data-error-visible", true);
   }
   return result
 }
@@ -173,7 +171,8 @@ function validate() {   // Code line 63 (HTML, onsubmit)
     result = validateTournamentQuantity(tournamentQuantity) && result;
 
     // Cities selection validation
-    //result = validateCitiesBtnRadio(citiesBtnRadio) && result;
+    // Du coup, le citiesBtnRadio n'est pas utilisé et j'aimerais bien
+    result = validateCitiesBtnRadio(citiesBtnRadio) && result;
  
     // Terms of use validation
     result = validateTos(tosChecked) && result;
@@ -191,7 +190,7 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   } else {
     // The submission is validated
-    form.style.display = "none";
     confirmationMsgBox.style.display = "flex"
   }
 });
+
