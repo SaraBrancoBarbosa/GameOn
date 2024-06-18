@@ -581,6 +581,9 @@ footer {
     margin: auto;
     margin-top: 125px;
   }
+  .modal-validate-box {
+    background-color: transparent;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;

@@ -20,6 +20,7 @@ const form = document.querySelector("form");
 const formData = document.querySelectorAll(".formData");
 const confirmationMsgBox = document.getElementById("confirmationMsgBox");
 const closeBtns = document.querySelectorAll(".close-btn");
+const submitBtn = document.querySelector(".btn-submit");
 
 // Form elements
 const firstName = document.getElementById("first");
@@ -39,6 +40,7 @@ const tosChecked = document.getElementById("checkbox1");
 // Launch modal form (function)
 function launchModal() {
   modalbg.style.display = "block";
+  submitBtn.addEventListener("click", validate);
 }
 
 // Close modal form (function)
@@ -51,6 +53,22 @@ modalBtns.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // Close modal event
 closeBtns.forEach((btn) => btn.addEventListener("click", closeModal));
+
+/*********** Launching and closing confirmation message ***********/
+
+// Launch modal confirmation message when form submitted (function)
+function launchConfirmMsg() {
+  event.preventDefault(); // J'aimerais pouvoir enlever cette ligne
+  confirmationMsgBox.style.display = "flex";
+}
+
+// Close modal confirmation message when form submitted (function)
+function closeConfirmMsg() {
+  confirmationMsgBox.style.display = "none";
+}
+
+// Close modal confirmation message when form submitted
+closeBtns.forEach((btn) => btn.addEventListener("click", closeConfirmMsg));
 
 /*********** Form elements functions ***********/
 
@@ -182,15 +200,38 @@ function validate() {   // Code line 63 (HTML, onsubmit)
   return result; 
 }
 
-/*********** Form submission ***********/
+/*
+function validate(event) {
+  event.preventDefault()
 
+    let result = true;
+
+    if (!(
+      (result = validateName(firstName) && result) 
+      && (result = validateName(lastName) && result) 
+      && (result = validateEmail(email) && result) 
+      && (result = validateBirthdate(birthdate) && result)
+      && (result = validateTournamentQuantity(tournamentQuantity) && result) 
+      && (result = validateCitiesBtnRadio(citiesBtnRadio) && result) 
+      && (result = validateTos(tosChecked) && result)
+    )) {
+      console.log("C'est pas bon è_é")
+    } else {
+      console.log("C'est bon :D")
+      launchConfirmMsg();
+    }
+}
+*/
+
+/*********** Form submission ***********/
 form.addEventListener("submit", (event) => {
   // If the function is wrong, we keep the datas so the user can correct them. We prevent the page from loading.
-  if (!validate()) {
+if (!validate()) {
   event.preventDefault();
+  console.log("C'est pas bon è_é")
   } else {
     // The submission is validated
-    confirmationMsgBox.style.display = "flex"
+    console.log("C'est bon :D")
+    launchConfirmMsg();  
   }
 });
-
