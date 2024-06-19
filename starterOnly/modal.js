@@ -200,7 +200,7 @@ function validate() {   // Code line 63 (HTML, onsubmit)
   return result; 
 }
 
-/*
+/* Autre tentative pour raccourcir le code, mais les erreurs s'affichent une par une, pas toutes en même temps.
 function validate(event) {
   event.preventDefault()
 
@@ -226,12 +226,13 @@ function validate(event) {
 /*********** Form submission ***********/
 form.addEventListener("submit", (event) => {
   // If the function is wrong, we keep the datas so the user can correct them. We prevent the page from loading.
-if (!validate()) {
+if (!validate(event)) {
   event.preventDefault();
   console.log("C'est pas bon è_é")
   } else {
     // The submission is validated
     console.log("C'est bon :D")
+    closeModal();
     launchConfirmMsg();  
   }
 });

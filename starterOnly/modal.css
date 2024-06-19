@@ -42,7 +42,7 @@ img {
   color: #000000;
   text-align: center;
   padding: 12px 12px;
-  margin: 5px;
+  margin: 2px;
   text-decoration: none;
   font-size: 1.125rem;
   font-family: Roboto, sans-serif;
@@ -71,8 +71,13 @@ img {
 
 @media screen and (max-width: 768px) {
   .topnav {
-    margin: 30px 30px;
-    height: 65px;
+    margin: 0px;
+    height: 105px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 0px 30px;
+    z-index: 10;
   }
   .topnav a {
     display: none;
@@ -89,12 +94,14 @@ img {
     height: 30px;
   }
   .topnav.responsive {
-    position: relative;
+    position: sticky;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 30px;
-    height: 65px;
+    margin: 0px;
+    height: 105px;
+    padding: 0px 30px;
+    top: 0;
   }
   .topnav.responsive .main-navbar {
     display: flex;
@@ -103,8 +110,8 @@ img {
   }
   .topnav.responsive .icon {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 30px;
+    top: 23px;
     display: block;
     color: #ff0000;
     font-size: 2rem;
@@ -239,7 +246,7 @@ main {
   font-size: 2.5rem;
   font-weight: normal;
   display: flex;
-  height: 75vh;
+  height: 78vh;
 }
 
 .modal-validate-message-btn {
@@ -579,7 +586,7 @@ footer {
   }
   .content {
     margin: auto;
-    margin-top: 125px;
+    margin-top: 105px;
   }
   .modal-validate-box {
     background-color: transparent;
