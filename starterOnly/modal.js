@@ -21,6 +21,7 @@ const formData = document.querySelectorAll(".formData");
 const confirmationMsgBox = document.getElementById("confirmationMsgBox");
 const closeBtns = document.querySelectorAll(".close-btn");
 const submitBtn = document.querySelector(".btn-submit");
+const input = document.querySelectorAll(".input")
 
 // Form elements
 const firstName = document.getElementById("first");
@@ -157,12 +158,12 @@ const validateCitiesBtnRadio = () => {
 // Terms of use function
 const validateTos = () => {
   let result = true;
-  formData[6].setAttribute("data-error-visible", false);
+  input[0].setAttribute("data-error-visible", false);
 
   if (!tosChecked.checked) {
     result = false;
-    formData[6].setAttribute("data-error", "Veuillez accepter les conditions d'utilisation.");
-    formData[6].setAttribute("data-error-visible", true);
+    input[0].setAttribute("data-error", "Veuillez accepter les conditions d'utilisation.");
+    input[0].setAttribute("data-error-visible", true);
   }
   return result
 }
