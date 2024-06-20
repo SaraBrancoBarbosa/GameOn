@@ -8,8 +8,6 @@ function editNav() {
     x.className = "topnav";
   }
 }
-// J'aimerais rendre le header visible en responsive lorsqu'on ouvre le formulaire.
-// Ensuite, lorsqu'on descend dans le formulaire, le header disparait. Si on remonte, le header réapparait.
 
 /*********** Elements ***********/
 
@@ -29,10 +27,11 @@ const lastName = document.getElementById("last");
 const email = document.getElementById("email");
 const birthdate = document.getElementById("birthdate");
 const tournamentQuantity = document.getElementById("quantity");
-const citiesBtnRadio = document.querySelector("input[name='location']:checked");
+const citiesBtnRadio = document.getElementsByName("location");
 /*
-Je n'arrivais pas à rendre fonctionnel les btn radios en passant par citiesBtnRadio.
+Je n'arrive pas à rendre fonctionnel les btn radios en passant par citiesBtnRadio.
 J'aimerais cependant comprendre pourquoi cela fonctionne quand j'écris le code dans la fonction, mais pas ici
+Sous cette forme : document.querySelectorAll("input[name='location']")
 */
 const tosChecked = document.getElementById("checkbox1");
 
@@ -110,20 +109,30 @@ const validateEmail = () => {
   return result
 }
 
+
+
 // Birthdate function
 const validateBirthdate = () => {
   let result = true;
   formData[3].setAttribute("data-error-visible", false);
+  
+  // Birthdate: the user can't be a minor (en cours !)
+  const today = new Date();
+  const validMinDate = new Date(
+    today.getFullYear()-18,
+    today.getMonth(),
+    today.getDate(),
+  );
 
   if (!birthdate.value.match(/^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/)) {
     result = false;
     formData[3].setAttribute("data-error", "Veuillez entrer votre date de naissance.");
     formData[3].setAttribute("data-error-visible", true);
-    /* Mettre regexp pour être majeur
-   } else if (!majeur) {
+    /* Mettre info pour être majeur */
+   } else if (!birthdate < validMinDate) {
     result = false;
     formData[3].setAttribute("data-error-visible", true);
-    formData[3].setAttribute("data-error", "Vous devez être majeur pour vous inscrire."); */
+    formData[3].setAttribute("data-error", "Vous devez être majeur pour vous inscrire."); 
   }
   return result
 }
@@ -142,16 +151,20 @@ const validateTournamentQuantity = () => {
 }
 
 // Cities selection function
+// Code non fonctionnel
 const validateCitiesBtnRadio = () => {
   let result = true;
   formData[5].setAttribute("data-error-visible", false);
 
-    if (!(document.querySelector('input[name="location"]:checked'))) {
+  for (let i = 0; i < citiesBtnRadio.length; i++) {
+
+    if (!citiesBtnRadio[i].checked) {
       result = false;
       formData[5].setAttribute("data-error", "Veuillez sélectionner une ville.");
       formData[5].setAttribute("data-error-visible", true);
     }
     return result;
+  }
   
 }
 
@@ -190,7 +203,6 @@ function validate() {   // Code line 63 (HTML, onsubmit)
     result = validateTournamentQuantity(tournamentQuantity) && result;
 
     // Cities selection validation
-    // Du coup, le citiesBtnRadio n'est pas utilisé et j'aimerais bien
     result = validateCitiesBtnRadio(citiesBtnRadio) && result;
  
     // Terms of use validation
@@ -202,6 +214,7 @@ function validate() {   // Code line 63 (HTML, onsubmit)
 }
 
 /* Autre tentative pour raccourcir le code, mais les erreurs s'affichent une par une, pas toutes en même temps.
+
 function validate(event) {
   event.preventDefault()
 
