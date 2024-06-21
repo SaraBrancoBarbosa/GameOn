@@ -89,7 +89,7 @@ img {
   .topnav a.icon {
     position: absolute;
     right: 30px;
-    top: 20px;
+    bottom: 20px;
     display: block;
     color: #ff0000;
     font-size: 2rem;
@@ -114,20 +114,23 @@ img {
   .topnav.responsive .main-navbar {
     display: flex;
     flex-direction: column;
-    margin-right: 50px;
+    padding-right: 50px;
+    position: absolute;
+    top: 85px;
+    right: 0;
+    background-color: white;
+    border-radius: 15px;
   }
   .topnav.responsive .icon {
+    position: absolute;
+    display: block;
+    color: #ff0000;
     font-size: 2rem;
     padding: 12px;
   }
   .topnav.responsive a {
     display: block;
-    color: #000000;
-    text-decoration: none;
-    font-size: 1.125rem;
-    font-family: Roboto, sans-serif;
-    padding: 0px 12px;
-    text-align: end;
+    text-align: start;
   }
   .topnav.responsive a:hover {
     background-color: #ff0000;
@@ -149,8 +152,8 @@ main {
   font-weight: bolder;
   color: black;
   padding-top: 0.5vw;
-  padding-left: 2vw;
-  padding-right: 2vw;
+  padding-left: 20px;
+  padding-right: 20px;
   margin: 1px 20px 15px;
   border-radius: 2rem;
   text-align: justify;
