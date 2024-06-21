@@ -552,9 +552,6 @@ footer {
   main {
     margin: 0 auto;
   }
-  .bground {
-    background-color: transparent;
-  }
   .content {
     margin: auto;
     top: 105px;
