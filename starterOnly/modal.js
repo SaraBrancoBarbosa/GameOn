@@ -40,9 +40,9 @@ const stopPropagation = (event) => {
 // Function to launch the modals
 function launchModal(modal, closeFunction) {
   modal.style.display = "block";
-  // "Hides" the background and removes its scrolling bar
+  // "Hides" the background and removes its scrolling bar:
   document.body.style.overflow = "hidden"; 
-  // Clicking outside of the form closes it
+  // Clicking outside of the form closes it:
   modal.addEventListener("click", closeFunction); 
   modal.querySelector(".content").addEventListener("click", stopPropagation);
 
@@ -86,7 +86,7 @@ modalBtns.forEach((btn) => btn.addEventListener("click", launchValidation));
 /*********** Form elements functions ***********/
 
 /**
- * Fonction de validation
+ * Validating function
  * @param {HTMLElement} element
  * @returns {boolean} True if element.value is valid
  */
