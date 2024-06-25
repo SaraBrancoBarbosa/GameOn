@@ -101,7 +101,7 @@ const validateName = (element) => {
     result = false;
     element.parentNode.dataset.error="Veuillez entrer au moins 2 caractères."
     element.parentNode.setAttribute("data-error-visible",true);
-  } else if (!(/[A-Za-zÀ-ÖØ-öø-ÿ '-]+$/g).test(name)) {
+  } else if (!(/^[A-Za-zÀ-ÖØ-öø-ÿ '-]+$/).test(name)) {
     result = false;
     element.parentNode.dataset.error="Caractères invalides."
     element.parentNode.setAttribute("data-error-visible",true);
