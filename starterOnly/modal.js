@@ -179,8 +179,8 @@ const validateCitiesBtnRadio = () => {
     }
   }
   if (result === false) {
-  formData[5].setAttribute("data-error", "Veuillez sélectionner une ville.");
-  formData[5].setAttribute("data-error-visible", true);
+    formData[5].setAttribute("data-error", "Veuillez sélectionner une ville.");
+    formData[5].setAttribute("data-error-visible", true);
   }
   return result;
 
@@ -205,29 +205,30 @@ function validateFields() {
 
   let result = true;
 
-    // First name validation
-    result = validateName(firstName) && result;
+  // First name validation
+  result = validateName(firstName) && result;
 
-    // Last name validation  
-    result = validateName(lastName) && result;
+  // Last name validation  
+  result = validateName(lastName) && result;
 
-    // Email validation
-    result = validateEmail(email) && result;
+  // Email validation
+  result = validateEmail(email) && result;
 
-    // Birthdate validation
-    result = validateBirthdate(birthdate) && result;
+  // Birthdate validation
+  result = validateBirthdate(birthdate) && result;
 
-    // Tournament quantity validation
-    result = validateTournamentQuantity(tournamentQuantity) && result;
+  // Tournament quantity validation
+  result = validateTournamentQuantity(tournamentQuantity) && result;
 
-    // Cities selection validation
-    result = validateCitiesBtnRadio(citiesBtnRadio) && result;
- 
-    // Terms of use validation
-    result = validateTos(tosChecked) && result;
+  // Cities selection validation
+  result = validateCitiesBtnRadio(citiesBtnRadio) && result;
+
+  // Terms of use validation
+  result = validateTos(tosChecked) && result;
 
   // If all the fields are correct, the result is validated
   return result; 
+
 }
 
 /*********** Form submission ***********/
