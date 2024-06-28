@@ -114,7 +114,8 @@ const validateEmail = () => {
   let result = true;
   formData[2].setAttribute("data-error-visible", false);
 
-  if (!email.value.match(/^[a-z0-9._-]+@[a-z0-9._-]+.([a-z0-9._-]{2,})+$/)) {
+  if (!email.value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)) {
+    
     result = false;
     formData[2].setAttribute("data-error", "Veuillez entrer une adresse email valide.");
     formData[2].setAttribute("data-error-visible", true);
