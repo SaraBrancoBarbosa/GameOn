@@ -1,3 +1,5 @@
+# GameOn
+
 Projet GameOn : créer une landing page avec Javascript
 
 GameOn est une entreprise fictive, imaginée par OpenClassrooms dans le cadre de ma formation.<br>
